@@ -9,5 +9,11 @@ with open(sys.argv[1]) as f:
             continue
         x0,y0, x1,y1, s,f = line.split(' ')
 
-        win = int(f) - int(s)
-        print str(win)
+        x0 = int(x0);
+        x1 = int(x1);
+        y0 = int(y0);
+        y1 = int(y1);
+
+        dist = abs(x1-x0) + abs(y1-y0)
+
+        print dist
