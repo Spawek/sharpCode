@@ -9,8 +9,8 @@ namespace Konkurs_C_Sharp
 {
     class Program
     {
-        static string inputDirectory = @"D:\maciek\hashcode\Konkurs\Input\";
-        static string outputDirectory = @"D:\maciek\hashcode\Konkurs\Output\";
+        static string inputDirectory = @"C:\maciek\sharpCode\Konkurs_C_Sharp\Konkurs_C_Sharp\Dane\Input\";
+        static string outputDirectory = @"C:\maciek\sharpCode\Konkurs_C_Sharp\Konkurs_C_Sharp\Dane\Output\";
 
         class InputStructure
         {
