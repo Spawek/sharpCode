@@ -1,0 +1,13 @@
+#!/usr/bin/env python2
+import sys
+
+with open(sys.argv[1]) as f:
+    first = True
+    for line in f.readlines():
+        if first:
+            first = False
+            continue
+        x0,y0, x1,y1, s,f = line.split(' ')
+
+        win = int(f) - int(s)
+        print str(win)
