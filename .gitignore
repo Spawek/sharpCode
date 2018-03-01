@@ -190,3 +190,7 @@ ModelManifest.xml
 
 # .vs directory
 .vs/
+
+# vim temp files
+*.swp
+*.swo
