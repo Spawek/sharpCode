@@ -196,3 +196,5 @@ ModelManifest.xml
 # vim temp files
 *.swp
 *.swo
+
+*.orig
