@@ -259,6 +259,14 @@ namespace Konkurs_C_Sharp
             }
         }
 
+        // 16 - 11237747 
+        // 32 - 11428838 
+        // 48 - 11560597
+        // 64 - 11629076
+        // 96 - 11639283
+        // 100 - 11652814
+        // 128 - 11563526
+        // 158 - 11367549
         static OutputStructure Solve(InputStructure inputStructure, bool metropolisHax = false)
         {
             var os = new OutputStructure();
@@ -297,6 +305,11 @@ namespace Konkurs_C_Sharp
                     ridesForTheEnd = null;
                 }
 
+                if (currVehicle.vehicleNo < 100 && metropolisHax && ridesForTheEnd != null)
+                {
+                    availableRides = ridesForTheEnd.Where(ride => currVehicle.canFulfill(ride)).ToList();
+                }
+
                 if (availableRides.Count == 0)
                 {
                     vehicles.Remove(currVehicle);
@@ -308,6 +321,8 @@ namespace Konkurs_C_Sharp
                 var timeSpent = currVehicle.timeSpent(bestRide);
 
                 ridesLeft.Remove(bestRide);
+                if (ridesForTheEnd != null)
+                    ridesForTheEnd.RemoveAll(x => x.rideNo == bestRide.rideNo);
 
                 if (currVehicle.pointsFor(bestRide) == 0)
                     throw new ApplicationException();
@@ -337,8 +352,8 @@ namespace Konkurs_C_Sharp
             //ProcessFile("a_example");
             //ProcessFile("b_should_be_easy");
             //ProcessFile("c_no_hurry");
-            //ProcessFile("d_metropolis");
-            ProcessFile("e_high_bonus");
+            ProcessFile("d_metropolis");
+            //ProcessFile("e_high_bonus");
         }
     }
 }
