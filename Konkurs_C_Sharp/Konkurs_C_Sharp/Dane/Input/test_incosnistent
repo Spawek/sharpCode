@@ -12,4 +12,3 @@ with open(sys.argv[1]) as f:
         t = abs(int(s)-int(f))
         if d>t:
             print line
-        break
