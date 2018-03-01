@@ -292,7 +292,7 @@ namespace Konkurs_C_Sharp
 
                 if (availableRides.Count == 0 && ridesForTheEnd != null)
                 {
-                    availableRides.AddRange(ridesForTheEnd);
+                    ridesLeft.AddRange(ridesForTheEnd);
                     availableRides = ridesLeft.Where(ride => currVehicle.canFulfill(ride)).ToList();  // HAX
                     ridesForTheEnd = null;
                 }
@@ -337,8 +337,8 @@ namespace Konkurs_C_Sharp
             //ProcessFile("a_example");
             //ProcessFile("b_should_be_easy");
             //ProcessFile("c_no_hurry");
-            ProcessFile("d_metropolis");
-            //ProcessFile("e_high_bonus");
+            //ProcessFile("d_metropolis");
+            ProcessFile("e_high_bonus");
         }
     }
 }
