@@ -259,7 +259,7 @@ namespace Konkurs_C_Sharp
             }
         }
 
-        static OutputStructure Solve(InputStructure inputStructure)
+        static OutputStructure Solve(InputStructure inputStructure, bool metropolisHax = false)
         {
             var os = new OutputStructure();
 
@@ -270,10 +270,32 @@ namespace Konkurs_C_Sharp
             var allVehiclesAtAll = vehicles.ToList();
 
             var ridesLeft = inputStructure.rides.ToList();
+
+            List<Ride> ridesForTheEnd = null;
+            if (metropolisHax)
+            {
+                ridesLeft = ridesLeft
+                    .Where(x => x.rowStart > 1600)
+                    .Where(x => x.rowEnd < 4000)
+                    .Where(x => x.colStart > 0)
+                    .Where(x => x.colEnd < 2500)
+                    .ToList();
+
+                ridesForTheEnd = inputStructure.rides.ToList();
+                ridesForTheEnd.RemoveAll(x => ridesLeft.Any(y => x.rideNo == y.rideNo));
+            }
+
             while (ridesLeft.Count > 0 && vehicles.Count > 0)
             {
                 var currVehicle = vehicles.MinElement(x => x.availableAtTime);
                 var availableRides = ridesLeft.Where(ride => currVehicle.canFulfill(ride)).ToList();
+
+                if (availableRides.Count == 0 && ridesForTheEnd != null)
+                {
+                    availableRides.AddRange(ridesForTheEnd);
+                    availableRides = ridesLeft.Where(ride => currVehicle.canFulfill(ride)).ToList();  // HAX
+                    ridesForTheEnd = null;
+                }
 
                 if (availableRides.Count == 0)
                 {
@@ -304,7 +326,7 @@ namespace Konkurs_C_Sharp
             Console.WriteLine($"processing file started {baseFileName}");
 
             var input = Parse(inputDirectory + baseFileName + ".in");
-            var output = Solve(input);
+            var output = Solve(input, baseFileName.Contains("metropolis"));
             WriteResultToFile(output, outputDirectory + baseFileName + ".out");
 
             Console.WriteLine($"processing file finished {baseFileName}");
@@ -312,11 +334,11 @@ namespace Konkurs_C_Sharp
 
         static void Main(string[] args)
         {
-            ProcessFile("a_example");
-            ProcessFile("b_should_be_easy");
-            ProcessFile("c_no_hurry");
+            //ProcessFile("a_example");
+            //ProcessFile("b_should_be_easy");
+            //ProcessFile("c_no_hurry");
             ProcessFile("d_metropolis");
-            ProcessFile("e_high_bonus");
+            //ProcessFile("e_high_bonus");
         }
     }
 }
